@@ -14,7 +14,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
 
 public slots:
-    void installSelected(bool);
+    void installSelected();
 
 private:
     void setupActions();

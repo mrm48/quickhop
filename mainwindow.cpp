@@ -20,8 +20,10 @@ QCheckBox *isVirtualMachine;
 QCheckBox *installDevTools;
 QCheckBox *installGameTools;
 QPushButton *continueInstall;
+QString *devTools;
+QString *gameTools;
 
-bool debug = false;
+bool debug = true;
 
 MainWindow::MainWindow(QWidget *parent) : KXmlGuiWindow(parent)
 {
@@ -39,15 +41,14 @@ QGroupBox* MainWindow::createOptionBox()
 
   // Instantiate group
   QGroupBox *groupBox = new QGroupBox(tr("Options"));
+
   continueInstall = new QPushButton("Install", this);
+  connect(continueInstall,SIGNAL(clicked(bool)), this, SLOT(installSelected()));
   
 
   // Instantiate checkboxes for various filters / options
-  //QCheckBox *flipInputVert = new QCheckBox("Flip Input Vertically");
   isVirtualMachine = new QCheckBox("Virtual Machine");
-  //connect(isVirtualMachine,SIGNAL(clicked(bool)), this, SLOT(updateFlip(bool)));
   installDevTools = new QCheckBox("Install Development Tools");
-  //connect(installDevTools,SIGNAL(clicked(bool)), this, SLOT(updateGreyscale(bool)));
   
   // Set up Dropdowns
 
@@ -55,50 +56,25 @@ QGroupBox* MainWindow::createOptionBox()
   // 1. Checkboxes 2. labels and dropdowns
   QVBoxLayout *vbox = new QVBoxLayout;
 
-  vbox->addWidget(continueInstall);
   vbox->addWidget(isVirtualMachine);
   vbox->addWidget(installDevTools);
- 
+  vbox->addWidget(continueInstall);
+
   // return layout - vbox is wrapper around 1. Checkboxes and 2. horizontal layouts containing labels and dropdowns
   groupBox->setLayout(vbox);
   return groupBox;
 }
 
-// Action when flip checkbox is toggled
-// TODO: Add call to v4l2 that will flip the camera
-void MainWindow::installSelected(bool value)
+// Action when install button is clicked
+void MainWindow::installSelected()
 {
 
-  if(value)
-  {
+  if(debug){
 
-    QProcess flipProcess;
-    if(flipProcess.waitForStarted()){
-      flipProcess.waitForReadyRead();
-    }
-    installDevTools->setEnabled(false);
-    
-    if(debug){
-
-      QMessageBox msgBox;
-      msgBox.setText("Install is clicked");    
-      msgBox.exec();
-
-    }
+    QMessageBox msgBox;
+    msgBox.setText("Install is clicked");    
+    msgBox.exec();
 
   }
 
-  else
-  {
-
-    if(debug)
-    {
-
-      QMessageBox msgBox;
-      msgBox.setText("Flip is unchecked"); 
-      msgBox.exec();
-
-    }
-
-  }
 }
