@@ -8,6 +8,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QProcess>
+#include <QFile>
 
 #include <KLocalizedString>
 #include <KActionCollection>
@@ -22,6 +23,8 @@ QCheckBox *installGameTools;
 QPushButton *continueInstall;
 QString *devTools;
 QString *gameTools;
+QString *scriptHeader;
+QString *script;
 
 bool debug = true;
 
@@ -45,12 +48,9 @@ QGroupBox* MainWindow::createOptionBox()
   continueInstall = new QPushButton("Install", this);
   connect(continueInstall,SIGNAL(clicked(bool)), this, SLOT(installSelected()));
   
-
-  // Instantiate checkboxes for various filters / options
+  // Instantiate checkboxes for various options
   isVirtualMachine = new QCheckBox("Virtual Machine");
   installDevTools = new QCheckBox("Install Development Tools");
-  
-  // Set up Dropdowns
 
   // Set up vertical layout
   // 1. Checkboxes 2. labels and dropdowns
@@ -68,7 +68,8 @@ QGroupBox* MainWindow::createOptionBox()
 // Action when install button is clicked
 void MainWindow::installSelected()
 {
-
+  scriptHeader = new QString("#!/usr/bin/env bash \n");
+  
   if(debug){
 
     QMessageBox msgBox;
@@ -76,5 +77,11 @@ void MainWindow::installSelected()
     msgBox.exec();
 
   }
+  script = scriptHeader;
+  QFile file("/home/matt/test.out");
+  file.open(QIODevice::WriteOnly);
 
+  file.write(scriptHeader->toUtf8());
+
+  file.close();
 }

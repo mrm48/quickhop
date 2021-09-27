@@ -2,3 +2,13 @@
 build/
 
 compile_commands.json
+CMakeCache.txt
+CMakeFiles/
+quickhop_autogen/
+quickhop/
+prefix.sh
+prefix.sh.fish
+ecm*
+cmake_install.cmake
+CTestTestfile.cmake
+quickhop
