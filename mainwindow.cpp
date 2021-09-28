@@ -15,11 +15,13 @@
 #include <KLocalizedString>
 #include <KActionCollection>
 #include <KStandardAction>
+#include <qcombobox.h>
 #include <qdialog.h>
+#include <qlabel.h>
 #include <qstandardpaths.h>
 
 #include "mainwindow.h"
-
+QComboBox *targetDistro;
 QCheckBox *isVirtualMachine;
 QCheckBox *installDevTools;
 QCheckBox *installGameTools;
@@ -51,7 +53,13 @@ QGroupBox* MainWindow::createOptionBox()
   continueInstall = new QPushButton("Install", this);
   connect(continueInstall,SIGNAL(clicked(bool)), this, SLOT(installSelected()));
   
-  // Instantiate checkboxes for various options
+  // Instantiate comboboxes and checkboxes for various options
+  targetDistro = new QComboBox();
+  targetDistro->addItem("Ubuntu");
+  targetDistro->addItem("Kubuntu");
+  targetDistro->addItem("Arch");
+  targetDistro->addItem("Fedora");
+  targetDistro->addItem("Fedora-KDE-Spin");
   isVirtualMachine = new QCheckBox("Virtual Machine");
   installDevTools = new QCheckBox("Install Development Tools");
 
@@ -59,6 +67,7 @@ QGroupBox* MainWindow::createOptionBox()
   // 1. Checkboxes 2. labels and dropdowns
   QVBoxLayout *vbox = new QVBoxLayout;
 
+  vbox->addWidget(targetDistro);
   vbox->addWidget(isVirtualMachine);
   vbox->addWidget(installDevTools);
   vbox->addWidget(continueInstall);
