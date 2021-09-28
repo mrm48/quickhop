@@ -9,11 +9,14 @@
 #include <QLabel>
 #include <QProcess>
 #include <QFile>
+#include <QStandardPaths>
+#include <QDir>
 
 #include <KLocalizedString>
 #include <KActionCollection>
 #include <KStandardAction>
 #include <qdialog.h>
+#include <qstandardpaths.h>
 
 #include "mainwindow.h"
 
@@ -78,10 +81,16 @@ void MainWindow::installSelected()
 
   }
   script = scriptHeader;
-  QFile file("/home/matt/test.out");
-  file.open(QIODevice::WriteOnly);
+  auto path = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+  QDir *cachedir = new QDir(path);
+  if (cachedir->mkpath(cachedir->absolutePath()) && QDir::setCurrent(cachedir->absolutePath())){
+    
+      QFile file("test.out");
+      file.open(QIODevice::WriteOnly);
 
-  file.write(scriptHeader->toUtf8());
+      file.write(scriptHeader->toUtf8()); 
 
-  file.close();
+      file.close();
+
+  }
 }

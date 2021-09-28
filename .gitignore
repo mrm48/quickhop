@@ -12,3 +12,5 @@ ecm*
 cmake_install.cmake
 CTestTestfile.cmake
 quickhop
+
+Makefile
