@@ -16,6 +16,7 @@ public:
 
 public slots:
     void installSelected();
+    void populateDistroUpdate();
 
 private:
     void setupActions();

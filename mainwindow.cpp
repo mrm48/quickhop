@@ -15,6 +15,7 @@
 #include <KLocalizedString>
 #include <KActionCollection>
 #include <KStandardAction>
+#include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qdialog.h>
 #include <qlabel.h>
@@ -96,24 +97,46 @@ void MainWindow::installSelected()
 {
   scriptHeader = new QString("#!/usr/bin/env bash \n");
   
-  if(debug){
+  script = scriptHeader;
+
+  this->populateDistroUpdate();
+
+  auto path = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+  QDir *cachedir = new QDir(path);
+
+  if (debug){
+
+    QMessageBox pathMsgBox;
+    pathMsgBox.setText(cachedir->absolutePath());
+    pathMsgBox.exec();
 
     QMessageBox msgBox;
-    msgBox.setText("Install is clicked");    
+    msgBox.setText("Install is clicked");
     msgBox.exec();
 
   }
-  script = scriptHeader;
-  auto path = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
-  QDir *cachedir = new QDir(path);
+
   if (cachedir->mkpath(cachedir->absolutePath()) && QDir::setCurrent(cachedir->absolutePath())){
     
       QFile file("test.out");
       file.open(QIODevice::WriteOnly);
 
-      file.write(scriptHeader->toUtf8()); 
+      file.write(script->toUtf8());
 
       file.close();
 
+  }
+}
+
+// Add distribution update
+void MainWindow::populateDistroUpdate(){
+  if(targetDistro->currentText() == "Ubuntu" || targetDistro->currentText() == "Debian"){
+    script->append("\nsudo apt update ; sudo apt upgrade");
+  }
+  else if(targetDistro->currentText() == "Fedora"){
+    script->append("\nsudo dnf update");
+  }
+  else if(targetDistro->currentText() == "openSUSE Tumbleweed"){
+    script->append("\nsudo zypper dup");
   }
 }
