@@ -22,6 +22,7 @@
 
 #include "mainwindow.h"
 QComboBox *targetDistro;
+QComboBox *targetDE;
 QCheckBox *isVirtualMachine;
 QCheckBox *installDevTools;
 QCheckBox *installGameTools;
@@ -54,14 +55,21 @@ QGroupBox* MainWindow::createOptionBox()
   connect(continueInstall,SIGNAL(clicked(bool)), this, SLOT(installSelected()));
   
   // Instantiate comboboxes and checkboxes for various options
+  // Distro
   targetDistro = new QComboBox();
   targetDistro->addItem("Ubuntu");
-  targetDistro->addItem("Kubuntu");
   targetDistro->addItem("Debian Stable");
   targetDistro->addItem("Arch");
   targetDistro->addItem("Fedora");
-  targetDistro->addItem("Fedora-KDE-Spin");
   targetDistro->addItem("openSUSE Tumbleweed");
+
+  // Desktop Environment / WM
+  targetDE = new QComboBox();
+  targetDE->addItem("KDE Plasma");
+  targetDE->addItem("GNOME");
+  targetDE->addItem("XFCE");
+  targetDE->addItem("Qtile");
+  targetDE->addItem("Openbox");
 
   isVirtualMachine = new QCheckBox("Virtual Machine");
   installDevTools = new QCheckBox("Install Development Tools");
@@ -71,6 +79,7 @@ QGroupBox* MainWindow::createOptionBox()
   QVBoxLayout *vbox = new QVBoxLayout;
 
   vbox->addWidget(targetDistro);
+  vbox->addWidget(targetDE);
   vbox->addWidget(isVirtualMachine);
   vbox->addWidget(installDevTools);
   vbox->addWidget(continueInstall);
