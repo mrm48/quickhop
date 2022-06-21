@@ -73,6 +73,7 @@ QGroupBox* MainWindow::createOptionBox()
 
   isVirtualMachine = new QCheckBox("Virtual Machine");
   installDevTools = new QCheckBox("Install Development Tools");
+  installGamingTools = new QCheckBox("Install Common Gaming Applications");
 
   // Set up vertical layout
   // 1. Checkboxes 2. labels and dropdowns
@@ -82,6 +83,7 @@ QGroupBox* MainWindow::createOptionBox()
   vbox->addWidget(targetDE);
   vbox->addWidget(isVirtualMachine);
   vbox->addWidget(installDevTools);
+  vbox->addWidget(installGamingTools);
   vbox->addWidget(continueInstall);
 
   // return layout - vbox is wrapper around 1. Checkboxes and 2. horizontal layouts containing labels and dropdowns
