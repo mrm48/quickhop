@@ -4,6 +4,7 @@ project(quickhop)
 
 set(QT_MIN_VERSION "5.11.0")
 set(KF5_MIN_VERSION "5.68.0")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(ECM 1.0.0 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
@@ -34,6 +35,7 @@ set(quickhop_SRCS main.cpp mainwindow.cpp)
 add_executable(quickhop ${quickhop_SRCS})
 
 target_link_libraries(quickhop
+    Qt5::Core
     Qt5::Widgets
     KF5::CoreAddons
     KF5::I18n
