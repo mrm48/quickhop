@@ -57,9 +57,12 @@ QGroupBox* MainWindow::createOptionBox()
   targetDistro = new QComboBox();
   targetDistro->addItem("Ubuntu");
   targetDistro->addItem("Kubuntu");
+  targetDistro->addItem("Debian Stable");
   targetDistro->addItem("Arch");
   targetDistro->addItem("Fedora");
   targetDistro->addItem("Fedora-KDE-Spin");
+  targetDistro->addItem("openSUSE Tumbleweed");
+
   isVirtualMachine = new QCheckBox("Virtual Machine");
   installDevTools = new QCheckBox("Install Development Tools");
 
