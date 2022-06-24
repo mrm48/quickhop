@@ -22,6 +22,7 @@ public slots:
     void populateGameExtras();
     void installNativePackage(QString*);
     void installFlatpak(QString*);
+    void installBetaFlatpak(QString*);
 
 private:
     void setupActions();

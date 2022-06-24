@@ -200,6 +200,7 @@ void MainWindow::populateDevTools(){
 
 void MainWindow::populateGameExtras(){
   this->installFlatpak(new QString("steam"));
+  this->installBetaFlatpak(new QString("lutris"));
 }
 
 void MainWindow::installNativePackage(QString* package){
@@ -214,4 +215,10 @@ void MainWindow::installNativePackage(QString* package){
 void MainWindow::installFlatpak(QString* package){
   script->append("\nflatpak install ");
   script->append(package);
+}
+
+void MainWindow::installBetaFlatpak(QString* package){
+  script->append("\nflatpak remote-add --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo");
+  script->append("\nflatpak update --appstream");
+  this->installFlatpak(package);
 }
