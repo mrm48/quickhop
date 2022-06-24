@@ -17,6 +17,11 @@ public:
 public slots:
     void installSelected();
     void populateDistroUpdate();
+    void populateDistroSpecifics();
+    void populateDevTools();
+    void populateGameExtras();
+    void installNativePackage(QString*);
+    void installFlatpak(QString*);
 
 private:
     void setupActions();
