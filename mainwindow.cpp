@@ -60,7 +60,7 @@ QGroupBox* MainWindow::createOptionBox()
 
   continueInstall = new QPushButton("Install", this);
   connect(continueInstall,SIGNAL(clicked(bool)), this, SLOT(installSelected()));
-  
+
   // Instantiate comboboxes and checkboxes for various options
   // Distro
   targetDistro = new QComboBox();
@@ -102,7 +102,7 @@ QGroupBox* MainWindow::createOptionBox()
 void MainWindow::installSelected()
 {
   scriptHeader = new QString("#!/usr/bin/env bash \n");
-  
+
   script = scriptHeader;
 
   this->populateDistroSpecifics();
