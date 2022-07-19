@@ -26,6 +26,7 @@
 // UI Elements
 QComboBox *targetDistro;
 QComboBox *targetDE;
+QComboBox *targetEditor;
 QCheckBox *isVirtualMachine;
 QCheckBox *installDevTools;
 QCheckBox *installGameTools;
@@ -80,6 +81,10 @@ QGroupBox* MainWindow::createOptionBox()
 
   isVirtualMachine = new QCheckBox("Virtual Machine");
   installDevTools = new QCheckBox("Install Development Tools");
+  targetEditor = new QComboBox();
+  targetEditor->addItem("Emacs");
+  targetEditor->addItem("nvim");
+
   installGameTools = new QCheckBox("Install Common Gaming Applications");
 
   // Set up vertical layout
@@ -90,6 +95,7 @@ QGroupBox* MainWindow::createOptionBox()
   vbox->addWidget(targetDE);
   vbox->addWidget(isVirtualMachine);
   vbox->addWidget(installDevTools);
+  vbox->addWidget(targetEditor);
   vbox->addWidget(installGameTools);
   vbox->addWidget(continueInstall);
 
@@ -190,7 +196,12 @@ void MainWindow::populateDistroSpecifics(){
 }
 
 void MainWindow::populateDevTools(){
-  this->installNativePackage(new QString("emacs"));
+  if(targetEditor->currentText() == "emacs"){
+    this->installNativePackage(new QString("emacs"));
+  }
+  else{
+    this->installNativePackage(new QString("nvim"));
+  }
   this->installNativePackage(new QString("extra-cmake-modules"));
   this->installNativePackage(new QString("git"));
   if(targetDE->currentText() == "KDE Plasma"){
